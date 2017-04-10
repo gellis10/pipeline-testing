@@ -9,7 +9,16 @@ pipeline {
     }
     stage('Validate') {
       steps {
-        slackSend 'test'
+        parallel(
+          "Validate": {
+            slackSend 'test'
+            
+          },
+          "nested stage": {
+            sh 'echo something'
+            
+          }
+        )
       }
     }
   }
