@@ -3,8 +3,17 @@ pipeline {
   stages {
     stage('verify') {
       steps {
-        sh 'yamllint -h'
-        awsIdentity()
+        parallel(
+          "verify": {
+            sh 'yamllint -h'
+            awsIdentity()
+            
+          },
+          "": {
+            slackSend 'test'
+            
+          }
+        )
       }
     }
   }
