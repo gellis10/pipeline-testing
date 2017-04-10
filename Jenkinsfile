@@ -1,19 +1,15 @@
 pipeline {
   agent any
   stages {
-    stage('verify') {
+    stage('scm checkout') {
       steps {
-        parallel(
-          "verify": {
-            sh 'yamllint -h'
-            awsIdentity()
-            
-          },
-          "": {
-            slackSend 'test'
-            
-          }
-        )
+        sh 'yamllint -h'
+        awsIdentity()
+      }
+    }
+    stage('Validate') {
+      steps {
+        slackSend 'test'
       }
     }
   }
