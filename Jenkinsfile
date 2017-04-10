@@ -4,6 +4,7 @@ pipeline {
     stage('verify') {
       steps {
         sh 'yamllint -h'
+        awsIdentity()
       }
     }
   }
